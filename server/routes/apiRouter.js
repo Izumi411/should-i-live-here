@@ -15,6 +15,7 @@ JSON obj with key of address and borough in req.body
 
 router.post('/', 
   apiController.getData,
+  apiController.saveSearch,
   (req, res) => {
     // res.locals.data will be an array of objects sent to the front end
   return res.status(200).json(res.locals.data);

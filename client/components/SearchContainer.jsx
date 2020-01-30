@@ -6,10 +6,11 @@ import * as actions from '../actions/actions.js';
 
 const mapStateToProps = (state) => ({
   results: state.search.current_results,
+  user: state.auth.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addressSearch: (address, borough) => dispatch(actions.addressSearch(address, borough)),
+  addressSearch: (address, borough, user) => dispatch(actions.addressSearch(address, borough, user)),
 });
 
 class SearchContainer extends Component {
@@ -24,7 +25,7 @@ class SearchContainer extends Component {
     const address = e.target[0].value;
     // const borough = e.target[1].value;
     const borough = 'ununsed variable';
-    this.props.addressSearch(address, borough);
+    this.props.addressSearch(address, borough, this.props.user);
   }
 
   componentDidMount () {

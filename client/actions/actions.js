@@ -9,7 +9,7 @@ import { browserHistory } from 'react-router-dom';
 /* Redux thunk responsible for inputting an address and making
 a request to the NYC Open Data 311 Complaints API */
 
-export const addressSearch = (address, borough) => (dispatch) => {
+export const addressSearch = (address, borough, user) => (dispatch) => {
   const config = {
     method: 'POST',
     headers: {
@@ -18,6 +18,7 @@ export const addressSearch = (address, borough) => (dispatch) => {
     body: JSON.stringify({
       address,
       borough,
+      user,
     }),
   };
   fetch('/api', config)
@@ -106,3 +107,7 @@ export function userLogout() {
   //   history.push('/logout');
   // };
 }
+
+export const previousSearches = () => ({
+  type: types.SEARCH_HISTORY,
+});

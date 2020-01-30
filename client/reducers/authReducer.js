@@ -1,8 +1,9 @@
-import { SIGN_IN, REGISTER, LOGOUT } from '../constants/actionTypes';
+import { SIGN_IN, REGISTER, LOGOUT, SEARCH_HISTORY } from '../constants/actionTypes';
 
 const initialState = {
   currentUser: null,
   isLogged: false,
+  searchHistory: 0,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -28,6 +29,11 @@ const authReducer = (state = initialState, action) => {
         ...state,
         currentUser: null,
         isLogged: false,
+      };
+    case SEARCH_HISTORY: 
+      return {
+        ...state, 
+        searchHistory: true,
       };
     default: return state;
   }
