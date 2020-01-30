@@ -3,14 +3,14 @@ import { SIGN_IN, REGISTER, LOGOUT, SEARCH_HISTORY } from '../constants/actionTy
 const initialState = {
   currentUser: null,
   isLogged: false,
-  searchHistory: 0,
+  searchHistory: false,
 };
 
 const authReducer = (state = initialState, action) => {
   switch (action.type) {
     case SIGN_IN:
       console.log('payload:', action.payload);
-      if (!action.payload.email) {
+      if (!action.payload.email && !action.payload) {
         return state;
       }
       return {

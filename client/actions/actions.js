@@ -3,7 +3,6 @@
  * Action creators
  */
 import * as types from '../constants/actionTypes';
-import { browserHistory } from 'react-router-dom';
 /* SEARCH API */
 
 /* Redux thunk responsible for inputting an address and making
@@ -111,3 +110,29 @@ export function userLogout() {
 export const previousSearches = () => ({
   type: types.SEARCH_HISTORY,
 });
+
+export function userGmailFetch(email) {
+  const config = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    }, // need to check form is coming in this format
+    body: JSON.stringify({
+      email,
+    }),
+  };
+
+  // Redux thunk to dispatch requestLogin to make an async call to our API
+  return (dispatch) =>
+  // config is passed as our option options object to be sure only certain requests will resolve
+    fetch('/user/gmailLogin', config)
+      .then((res) => res.json())
+      .then((data) => {
+        dispatch({
+          type: types.SIGN_IN,
+          payload: data,
+        });
+      });
+}
+
+
