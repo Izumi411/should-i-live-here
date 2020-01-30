@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch, Link, withRouter } from 'react-router-dom';
 import Header from './Header.jsx';
 import SearchContainer from './SearchContainer.jsx';
 import Login from './Login.jsx';
@@ -11,12 +11,14 @@ import * as actions from '../actions/actions.js';
 const mapStateToProps = state => ({
   currentUser: state.auth.currentUser,
   isLogged: state.auth.isLogged,
+  searchHistory: state.auth.searchHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
   userLoginFetch: (email, password) => dispatch(actions.userLoginFetch(email, password)),
   userCreateFetch: (name, email, password) => dispatch(actions.userCreateFetch(name, email, password)),
   userLogout: () => dispatch(actions.userLogout()),
+  searchHistoryRequest: () => dispatch(actions.previousSearches()),
 });
 
 class MainContainer extends Component {
@@ -53,6 +55,20 @@ class MainContainer extends Component {
     return (
         <div>
           <Header onLogoutSubmit={ this.onLogoutSubmit } isLogged={ this.props.isLogged }/>
+          {
+            this.props.currentUser &&
+            <div className="navigation" onClick={() => {
+              this.props.searchHistoryRequest();
+            }}>
+              <Link className="cta" to='/'>Search History</Link>
+            {
+              this.props.searchHistory &&
+              this.props.currentUser.previousSearches.map((search, i) => {
+                return <h3>{search.address_search}</h3>
+              })
+            }
+            </div>
+          }
           <Switch>
             <Route exact path="/login" render={() => <Login onLoginSubmit={ this.onLoginSubmit } isLogged={ this.props.isLogged } /> } />
             <Route exact path="/register" render={() => <Register onRegisterSubmit={ this.onRegisterSubmit }/> } />

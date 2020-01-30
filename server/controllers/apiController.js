@@ -3,6 +3,7 @@
 
 // npm package that allows the use of fetch without the browser (ie in postman)
 const fetch = require('isomorphic-fetch');
+const db = require('../models/db');
 
 // app identifier to allow more queries to database
 const appToken = 'rvAoMk2CVgwcxb3uzQw8lxP1k';
@@ -79,6 +80,16 @@ apiController.getData = (req, res, next) => {
       log: err,
       message: { err: 'there was an error fetching 311 data' },
     }));
+};
+
+apiController.saveSearch = async (req, res, next) => {
+  try {
+    const search = await db.query(`INSERT INTO Searches(address_search, user_id)
+    VALUES($1, $2)`, [req.body.address, req.body.user.id]);
+    next();
+  } catch(err) {
+    next(err);
+  }
 };
 
 module.exports = apiController;

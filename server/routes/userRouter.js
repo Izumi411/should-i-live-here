@@ -7,7 +7,7 @@ const userController = require('../controllers/userController');
 router.post('/register', userController.createUser, (req, res) => res.status(200).json(res.locals.user));
 
 // route & middleware for verifying a user login attempt
-router.post('/login', userController.verifyUser, (req, res) => res.status(200).json(res.locals.user));
+router.post('/login', userController.verifyUser, userController.getSearches, (req, res) => res.status(200).json(res.locals.user));
 
 router.post('/gmailLogin', userController.verifyGmailUser, (req, res) => {
   if (res.locals.gmailLogin) {

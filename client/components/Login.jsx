@@ -45,7 +45,7 @@ class Login extends Component {
         <p className="message">Not registered? <Link to="/register">Create an account</Link></p>
         <GoogleLogin
           clientId="655026135584-0sl40b0opgrga6re9c4j5evclledats7.apps.googleusercontent.com"
-          buttonText="Login"
+          buttonText="Login with Google"
           onSuccess={this.theSuccess}
           onFailure={this.responseGoogle}
           cookiePolicy={'single_host_origin'}

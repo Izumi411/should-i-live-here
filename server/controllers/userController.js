@@ -65,6 +65,16 @@ userController.verifyUser = (req, res, next) => {
   });
 };
 
+userController.getSearches = async (req, res, next) => {
+  // submit a query to a DB to get all of the user's previous searches
+  try {
+    const previousSearches = await db.query(`SELECT searches.address_search FROM users RIGHT JOIN searches ON users.id = searches.user_id WHERE users.id=${res.locals.user.id}`);
+    res.locals.user.previousSearches = previousSearches.rows;
+    next();
+  } catch(err) {
+    next(err);
+  }
+};
 
 userController.verifyGmailUser = (req, res, next) => {
   console.log('verifyGmailUser controller hit');
