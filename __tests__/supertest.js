@@ -19,7 +19,7 @@ describe('Route testing', () => {
     // post request to /api
     describe('/api', () => {
         describe('POST', () => {
-            const requestBody = { address: '125 Lefferts Pl', borough: 'brooklyn' };
+            const requestBody = { address: '125 Lefferts Place, Brooklyn, NY, USA' };
             it('responds with 200 status and application/json content type', (done) => {
                 return request(server)
                 .post('/api')
